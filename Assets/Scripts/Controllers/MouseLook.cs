@@ -4,58 +4,24 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    [SerializeField] private string mouseXInputName, mouseYInputName;
-    [SerializeField] private float mouseSensitivity;
+    public float mouseSensitivity = 10f;
+    public Transform playerBody;
+    public float xRotation = 0f;
 
-    [SerializeField] private Transform playerBody;
-
-    private float xAxisClamp;
-
-    private void Awake()
-    {
-        LockCursor();
-        xAxisClamp = 0.0f;
-    }
-
-
-    private void LockCursor()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        CameraRotation();
-    }
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-    private void CameraRotation()
-    {
-        float mouseX = Input.GetAxis(mouseXInputName) * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis(mouseYInputName) * mouseSensitivity * Time.deltaTime;
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        xAxisClamp += mouseY;
-
-        if (xAxisClamp > 90.0f)
-        {
-            xAxisClamp = 90.0f;
-            mouseY = 0.0f;
-            ClampXAxisRotationToValue(270.0f);
-        }
-        else if (xAxisClamp < -90.0f)
-        {
-            xAxisClamp = -90.0f;
-            mouseY = 0.0f;
-            ClampXAxisRotationToValue(90.0f);
-        }
-
-        transform.Rotate(Vector3.left * mouseY);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
-    }
-
-    private void ClampXAxisRotationToValue(float value)
-    {
-        Vector3 eulerRotation = transform.eulerAngles;
-        eulerRotation.x = value;
-        transform.eulerAngles = eulerRotation;
     }
 }
