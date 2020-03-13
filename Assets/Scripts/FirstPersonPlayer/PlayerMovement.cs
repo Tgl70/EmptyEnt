@@ -34,7 +34,7 @@ public class PlayerMovement: MonoBehaviour
 
         if (isGrounded)
         {
-            jumps = 1;
+            jumps = 2;
         }
 
         if (Input.GetButtonDown("Jump") && jumps > 0)
