@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 7591405485356555273}
   - component: {fileID: 7591405485356555278}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
