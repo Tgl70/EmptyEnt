@@ -289,6 +289,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 884502384, guid: 374096181022a8c4aa5acce5cc77fa2b, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4189372779501083138, guid: 374096181022a8c4aa5acce5cc77fa2b,
         type: 3}
       propertyPath: m_LocalPosition.x

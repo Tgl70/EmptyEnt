@@ -298,7 +298,7 @@ MonoBehaviour:
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 512
 --- !u!1 &4189372779898205831
 GameObject:
   m_ObjectHideFlags: 0
