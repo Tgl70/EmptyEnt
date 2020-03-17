@@ -12,7 +12,7 @@ public class keyRing : MonoBehaviour
         keys = 0;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "key")
         {
