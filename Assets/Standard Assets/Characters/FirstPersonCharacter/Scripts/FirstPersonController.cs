@@ -37,6 +37,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        // Double jump variables
+        private bool jump1;
+        private bool jump2;
+
         private bool isGrounded; // is on a slope or not
         public float slideFriction = 0.3f; // ajusting the friction of the slope
         private Vector3 hitNormal; //orientation of the slope.
@@ -52,6 +56,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            jump1 = false;
+            jump2 = false;
         }
 
 
@@ -60,9 +66,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
+
+            if (m_CharacterController.isGrounded)
             {
-                m_Jump = Input.GetButtonDown("Jump");
+                jump1 = true;
+                jump2 = true;
+                m_MoveDir.y = -m_StickToGroundForce;
+            }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (jump1)
+                {
+                    m_MoveDir.y = m_JumpSpeed;
+                    PlayJumpSound();
+                    jump1 = false;
+                    m_Jumping = true;
+                }
+                else if (jump2)
+                {
+                    m_MoveDir.y = m_JumpSpeed;
+                    PlayJumpSound();
+                    jump2 = false;
+                    m_Jumping = true;
+                }
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -104,20 +131,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
 
+            
 
-            if (m_CharacterController.isGrounded)
-            {
-                m_MoveDir.y = -m_StickToGroundForce;
-
-                if (m_Jump)
-                {
-                    m_MoveDir.y = m_JumpSpeed;
-                    PlayJumpSound();
-                    m_Jump = false;
-                    m_Jumping = true;
-                }
-            }
-            else
+            if (!m_CharacterController.isGrounded)
             {
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
