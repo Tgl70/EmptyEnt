@@ -45,6 +45,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float slideFriction = 0.3f; // ajusting the friction of the slope
         private Vector3 hitNormal; //orientation of the slope.
 
+        // Vine controls
+        bool onVine;
+        public GameObject vineBottom;
+
         // Use this for initialization
         private void Start()
         {
@@ -73,6 +77,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 jump2 = true;
                 m_MoveDir.y = -m_StickToGroundForce;
             }
+
+            if (onVine)
+            {
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.forward * m_MoveDir.z, ForceMode.Acceleration);
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.right * m_MoveDir.x, ForceMode.Acceleration);
+            }
+
+            if (onVine && Input.GetKeyDown("E"))
+            {
+                onVine = false;
+                transform.parent = null;
+            }
+
+
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -266,6 +284,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_CollisionFlags == CollisionFlags.Below)
             {
                 return;
+            }
+
+            if (hit.gameObject.tag == "vine" && Input.GetKey("E"))
+            {
+                onVine = true;
+                transform.parent = hit.gameObject.transform;
             }
 
             if (body == null || body.isKinematic)

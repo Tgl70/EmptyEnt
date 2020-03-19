@@ -16,6 +16,8 @@ public class PlayerMovement: MonoBehaviour
     bool isGrounded;
     int jumps = 0;
 
+    
+
     // Update is called once per frame
     void Update()
     {
