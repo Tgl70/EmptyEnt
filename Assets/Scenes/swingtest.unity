@@ -1052,7 +1052,7 @@ GameObject:
   m_Layer: 5
   m_Name: key counter
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1200,6 +1200,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1085087692, guid: 374096181022a8c4aa5acce5cc77fa2b, type: 3}
+      propertyPath: counterText
+      value: 
+      objectReference: {fileID: 1340753291}
     - target: {fileID: 4189372779501083138, guid: 374096181022a8c4aa5acce5cc77fa2b,
         type: 3}
       propertyPath: m_LocalPosition.x
