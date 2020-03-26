@@ -62,6 +62,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
             jump1 = false;
             jump2 = false;
+            onVine = false;
         }
 
 
@@ -84,7 +85,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 vineBottom.GetComponent<Rigidbody>().AddForce(transform.right * m_MoveDir.x, ForceMode.Acceleration);
             }
 
-            if (onVine && Input.GetKeyDown("E"))
+            if (onVine && Input.GetKeyDown(KeyCode.Q))
             {
                 onVine = false;
                 transform.parent = null;
@@ -274,7 +275,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 
-
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             hitNormal = hit.normal;
@@ -286,10 +286,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
 
-            if (hit.gameObject.tag == "vine" && Input.GetKey("E"))
+            if (hit.gameObject.tag == "vine" && Input.GetKey(KeyCode.E))
             {
+                Debug.Log(hit.gameObject.name);
                 onVine = true;
                 transform.parent = hit.gameObject.transform;
+                vineBottom = hit.gameObject;
             }
 
             if (body == null || body.isKinematic)
