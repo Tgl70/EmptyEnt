@@ -6,7 +6,7 @@ using UnityEngine;
 public class keyRing : MonoBehaviour
 {
     static int keys;
-    public GameObject counterText;
+    public TextMeshProUGUI counterText;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,6 @@ public class keyRing : MonoBehaviour
 
     private void updateKeyCounter()
     {
-        counterText.GetComponent<TextMeshPro>().SetText("X " + keys);
+        counterText.SetText("X " + keys);
     }
 }

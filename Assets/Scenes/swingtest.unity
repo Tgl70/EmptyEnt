@@ -1121,8 +1121,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1203,7 +1203,7 @@ PrefabInstance:
     - target: {fileID: 1085087692, guid: 374096181022a8c4aa5acce5cc77fa2b, type: 3}
       propertyPath: counterText
       value: 
-      objectReference: {fileID: 1340753291}
+      objectReference: {fileID: 1340753293}
     - target: {fileID: 4189372779501083138, guid: 374096181022a8c4aa5acce5cc77fa2b,
         type: 3}
       propertyPath: m_LocalPosition.x
