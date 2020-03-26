@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class keyRing : MonoBehaviour
 {
     static int keys;
+    public TextMeshPro counterText;
 
     // Start is called before the first frame update
     void Start()
     {
         keys = 0;
+        updateKeyCounter();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -18,6 +21,12 @@ public class keyRing : MonoBehaviour
         {
             keys++;
             Destroy(collision.gameObject);
+            updateKeyCounter();
         }
+    }
+
+    private void updateKeyCounter()
+    {
+        counterText.SetText("X " + keys);
     }
 }
