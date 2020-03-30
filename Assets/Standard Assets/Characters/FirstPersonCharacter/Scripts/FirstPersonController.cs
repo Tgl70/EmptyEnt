@@ -41,8 +41,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool jump1;
         private bool jump2;
 
-        bool wasOnVine;
-        int timeCount;
+        private bool wasOnVine;
+        private int timeCount;
+        private Vector3 vineVelocity;
 
         private bool isGrounded; // is on a slope or not
         public float slideFriction = 0.3f; // ajusting the friction of the slope
@@ -100,7 +101,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 transform.parent = null;
                 wasOnVine = true;
                 timeCount = 10;
-                //this.GetComponent<Rigidbody>().AddForce(transform.forward * vertical * 10, ForceMode.Impulse);
+                vineVelocity = vineBottom.GetComponent<Rigidbody>().velocity;
+
+                Vector3 move = vineBottom.transform.position - this.transform.position;
+                m_CharacterController.SimpleMove(move);
             }
 
             if (onVine)
@@ -190,10 +194,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             isGrounded = Vector3.Angle(Vector3.up, hitNormal) <= m_CharacterController.slopeLimit;
 
+            //int timeCount2 = 0;
+
+            //if (timeCount > 0)
+            //{
+               //Vector3 move = vineBottom.transform.position - this.transform.position;
+               //m_CharacterController.SimpleMove(move);
+                //wasOnVine = false;
+                //timeCount--;
+                //timeCount2 = 10;
+            //}
+
             if (timeCount > 0)
             {
-                Vector3 move = vineBottom.transform.position - this.transform.position;
+
+                //GetComponent<Rigidbody>().AddForce(Vector3.Scale(transform.forward, vineVelocity) * 10000000000, ForceMode.Acceleration);
+
+                Vector3 move = (new Vector3(0.0f, 3f, 0.0f) + (vineVelocity)) * 30f * Time.fixedDeltaTime;
                 m_CharacterController.Move(move);
+                Debug.Log(move);
                 wasOnVine = false;
                 timeCount--;
             }
