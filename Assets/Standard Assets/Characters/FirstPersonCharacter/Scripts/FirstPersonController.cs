@@ -41,9 +41,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool jump1;
         private bool jump2;
 
+        private bool wasOnVine;
+        private int timeCount;
+        private Vector3 vineVelocity;
+
         private bool isGrounded; // is on a slope or not
         public float slideFriction = 0.3f; // ajusting the friction of the slope
         private Vector3 hitNormal; //orientation of the slope.
+
+        // Vine controls
+        bool onVine;
+        public GameObject vineBottom;
 
         // Use this for initialization
         private void Start()
@@ -58,6 +66,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
             jump1 = false;
             jump2 = false;
+            onVine = false;
+            wasOnVine = false;
+            timeCount = 0;
         }
 
 
@@ -74,7 +85,39 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = -m_StickToGroundForce;
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Debug.Log(this.transform.position);
+                Debug.Log(vineBottom.transform.position);
+                Debug.Log(-this.transform.position + vineBottom.transform.position);
+            }
+
+            if (onVine && Input.GetKeyDown(KeyCode.Q))
+            {
+                float horizontal = Input.GetAxis("Horizontal");
+                float vertical = Input.GetAxis("Vertical");
+
+                onVine = false;
+                transform.parent = null;
+                wasOnVine = true;
+                timeCount = 10;
+                vineVelocity = vineBottom.GetComponent<Rigidbody>().velocity;
+
+                Vector3 move = vineBottom.transform.position - this.transform.position;
+                m_CharacterController.SimpleMove(move);
+            }
+
+            if (onVine)
+            {
+                float horizontal = Input.GetAxis("Horizontal");
+                float vertical = Input.GetAxis("Vertical");
+
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.forward * vertical * 10, ForceMode.Acceleration);
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.right * horizontal * 4, ForceMode.Acceleration);
+                this.transform.position = vineBottom.transform.position + new Vector3(0, -1, 0);
+            }
+
+            if (Input.GetButtonDown("Jump") && !onVine)
             {
                 if (jump1)
                 {
@@ -119,8 +162,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             float speed;
             GetInput(out speed);
-            // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+
+            Vector3 desiredMove = new Vector3(0, 0, 0);
+            if (!onVine)
+            {
+                // always move along the camera forward as it is the direction that it being aimed at
+                desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+            }  
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
@@ -130,8 +178,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
-
-            
 
             if (!m_CharacterController.isGrounded)
             {
@@ -147,6 +193,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
 
             isGrounded = Vector3.Angle(Vector3.up, hitNormal) <= m_CharacterController.slopeLimit;
+
+            //int timeCount2 = 0;
+
+            //if (timeCount > 0)
+            //{
+               //Vector3 move = vineBottom.transform.position - this.transform.position;
+               //m_CharacterController.SimpleMove(move);
+                //wasOnVine = false;
+                //timeCount--;
+                //timeCount2 = 10;
+            //}
+
+            if (timeCount > 0)
+            {
+
+                //GetComponent<Rigidbody>().AddForce(Vector3.Scale(transform.forward, vineVelocity) * 10000000000, ForceMode.Acceleration);
+
+                Vector3 move = (new Vector3(0.0f, 3f, 0.0f) + (vineVelocity)) * 30f * Time.fixedDeltaTime;
+                m_CharacterController.Move(move);
+                Debug.Log(move);
+                wasOnVine = false;
+                timeCount--;
+            }
 
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
@@ -256,7 +325,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 
-
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             hitNormal = hit.normal;
@@ -266,6 +334,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_CollisionFlags == CollisionFlags.Below)
             {
                 return;
+            }
+
+            if (hit.gameObject.tag == "vine" && Input.GetKey(KeyCode.E))
+            {
+                onVine = true;
+                transform.parent = hit.gameObject.transform;
+                vineBottom = hit.gameObject;
             }
 
             if (body == null || body.isKinematic)
