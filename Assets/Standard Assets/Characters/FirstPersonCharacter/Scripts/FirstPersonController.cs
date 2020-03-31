@@ -53,6 +53,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         bool onVine;
         public GameObject vineBottom;
 
+        private float slideSpeed = 50;
+
         // Use this for initialization
         private void Start()
         {
@@ -186,8 +188,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (!isGrounded)
             {
-                m_MoveDir.x += (1f - hitNormal.y) * hitNormal.x * (speed - slideFriction);
-                m_MoveDir.z += (1f - hitNormal.y) * hitNormal.z * (speed - slideFriction);
+                m_MoveDir.x += ((1f - hitNormal.y) * hitNormal.x) * slideSpeed;
+                m_MoveDir.z += ((1f - hitNormal.y) * hitNormal.z) * slideSpeed;
             }
 
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
