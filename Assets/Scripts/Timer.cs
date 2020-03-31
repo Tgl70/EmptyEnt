@@ -1,29 +1,28 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
     static float TOTAL_TIME = 180.0f;
 
-    float timeLeft;
+    static float timeLeft; // static binds the variable to the script (and not the object) so i can keep track of the value
 
     bool isRunning = false;
 
     public TextMeshProUGUI timeLeftText;
 
-    private void Awake()
-    {
-        timeLeft = TOTAL_TIME;
-    }
-
-    public void StartTimer()
-    {
-        isRunning = true;
-    }
-
     public void Start()
     {
-        StartTimer();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            timeLeft = TOTAL_TIME;
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            isRunning = true;
+        }
     }
 
     // Update is called once per frame

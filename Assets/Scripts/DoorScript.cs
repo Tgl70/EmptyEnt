@@ -8,12 +8,6 @@ public class DoorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int sceneCount = SceneManager.sceneCountInBuildSettings;
-        Debug.Log(sceneCount);
-        for (int i = 0; i < sceneCount; i++)
-        {
-            Debug.Log(SceneManager.GetSceneAt(i).name);
-        }
     }
 
     // Update is called once per frame
@@ -24,8 +18,11 @@ public class DoorScript : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "player" && keyRing.keys > 0)
+        Debug.Log("collide");
+        Debug.Log(collider.gameObject.tag);
+        if (collider.gameObject.tag == "Player" && keyRing.keys > 0)
         {
+            Debug.Log("collide player");
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
             SceneManager.LoadScene(nextSceneIndex);
         }
