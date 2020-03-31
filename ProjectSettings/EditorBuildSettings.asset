@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartingScene.unity
+    guid: 5b3fa58194f420c498cd30963fdd9501
+  - enabled: 1
+    path: Assets/Scenes/LavaScene.unity
+    guid: 051143aed65211b439f7fa33121bafac
+  - enabled: 1
+    path: Assets/Scenes/Test slope.unity
+    guid: 300d7c91fa5874c4bb63ff244191ba41
+  - enabled: 1
+    path: Assets/Scenes/swingtest.unity
+    guid: b16f2516095bbbb4298761ab6a46c11c
+  - enabled: 1
+    path: Assets/Scenes/mazeTest.unity
+    guid: 7c3e59051ba0e494f948f160342ea6e7
   m_configObjects: {}
