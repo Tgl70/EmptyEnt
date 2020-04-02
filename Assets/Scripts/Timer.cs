@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
 
     static float timeLeft; // static binds the variable to the script (and not the object) so i can keep track of the value
 
-    bool isRunning = false;
+    static bool isRunning = false;
 
     public TextMeshProUGUI timeLeftText;
 
