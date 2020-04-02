@@ -8,11 +8,14 @@ public class GameController : MonoBehaviour
 {
     public CharacterController controller;
     private MazeConstructor generator;
+    public Canvas winningCanvas;
+    public Button winningButton;
 
     void Start()
     {
         generator = GetComponent<MazeConstructor>();
         StartNewGame();
+        winningButton.onClick.AddListener(Application.Quit);
     }
 
     private void StartNewGame()
@@ -23,6 +26,8 @@ public class GameController : MonoBehaviour
     private void StartNewMaze()
     {
         generator.GenerateNewMaze(49, 49, OnStartTrigger, OnGoalTrigger);
+
+        winningCanvas.enabled = false;
 
         float x = generator.startCol * generator.hallWidth;
         float y = 1;
@@ -38,8 +43,7 @@ public class GameController : MonoBehaviour
 
     private void OnGoalTrigger(GameObject trigger, GameObject other)
     {
-        //@TODO something when the user wins
-
+        winningCanvas.enabled = true;
         Destroy(trigger);
     }
 
