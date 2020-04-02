@@ -192,6 +192,8 @@ public class MazeConstructor : MonoBehaviour
         go.GetComponent<BoxCollider>().isTrigger = true;
         go.GetComponent<MeshRenderer>().sharedMaterial = startMat;
 
+        Destroy(go);
+
         TriggerEventRouter tc = go.AddComponent<TriggerEventRouter>();
         tc.callback = callback;
     }

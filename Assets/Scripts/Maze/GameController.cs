@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-
+    public CharacterController controller;
     private MazeConstructor generator;
 
     void Start()
@@ -28,7 +27,8 @@ public class GameController : MonoBehaviour
         float x = generator.startCol * generator.hallWidth;
         float y = 1;
         float z = generator.startRow * generator.hallWidth;
-        player.transform.position = new Vector3(x, y, z);
+        Vector3 spawnPosition = new Vector3(x, y, z);
+        controller.Move(spawnPosition - transform.position);
     }
 
     void Update()
