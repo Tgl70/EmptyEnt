@@ -117,7 +117,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 float horizontal = Input.GetAxis("Horizontal");
                 float vertical = Input.GetAxis("Vertical");
 
-                vineBottom.GetComponent<Rigidbody>().AddForce(transform.forward * vertical * 2, ForceMode.Acceleration);
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.forward * vertical * 4, ForceMode.Acceleration);
                 vineBottom.GetComponent<Rigidbody>().AddForce(transform.right * horizontal * 1, ForceMode.Acceleration);
                 this.transform.position = vineBottom.transform.position + new Vector3(0, -1, 0);
             }
@@ -213,23 +213,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             isGrounded = Vector3.Angle(Vector3.up, hitNormal) <= m_CharacterController.slopeLimit;
 
-            //int timeCount2 = 0;
-
-            //if (timeCount > 0)
-            //{
-               //Vector3 move = vineBottom.transform.position - this.transform.position;
-               //m_CharacterController.SimpleMove(move);
-                //wasOnVine = false;
-                //timeCount--;
-                //timeCount2 = 10;
-            //}
-
             if (timeCount > 0)
             {
-
-                //GetComponent<Rigidbody>().AddForce(Vector3.Scale(transform.forward, vineVelocity) * 10000000000, ForceMode.Acceleration);
-
-                Vector3 move = (new Vector3(0.0f, 300f, 0.0f) + (vineVelocity)) * 60f * Time.fixedDeltaTime;
+                jumpDampener = true;
+                Vector3 move = (new Vector3(0.0f, 7f, 0.0f) + (vineVelocity)) * 20f * Time.fixedDeltaTime;
                 m_CharacterController.Move(move);
                 Debug.Log(move);
                 wasOnVine = false;
