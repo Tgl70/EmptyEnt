@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
         generator = GetComponent<MazeConstructor>();
         StartNewGame();
         winningButton.onClick.AddListener(Application.Quit);
+
     }
 
     private void StartNewGame()
@@ -25,7 +26,7 @@ public class GameController : MonoBehaviour
 
     private void StartNewMaze()
     {
-        generator.GenerateNewMaze(49, 49, OnStartTrigger, OnGoalTrigger);
+        generator.GenerateNewMaze(21, 21, OnStartTrigger, OnGoalTrigger);
 
         winningCanvas.enabled = false;
 

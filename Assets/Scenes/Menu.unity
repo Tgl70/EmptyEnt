@@ -295,7 +295,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EmptyEnt
+  m_text: EmptyEnt [ ]
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 354a39a1f0defe248ab5f1c9df8abc7b, type: 2}
   m_sharedMaterial: {fileID: -1387744355009698496, guid: 354a39a1f0defe248ab5f1c9df8abc7b,
@@ -366,14 +366,14 @@ MonoBehaviour:
   m_margin: {x: -337.69727, y: -78.44141, z: -1.2970581, w: 55.13672}
   m_textInfo:
     textComponent: {fileID: 85566623}
-    characterCount: 8
+    characterCount: 12
     spriteCount: 0
-    spaceCount: 0
+    spaceCount: 2
     wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 1
+    materialCount: 2
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}

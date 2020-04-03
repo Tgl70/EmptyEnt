@@ -1117,8 +1117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1618506062}
-  winningCanvas: {fileID: 0}
-  winningButton: {fileID: 0}
+  winningCanvas: {fileID: 871245805}
+  winningButton: {fileID: 470769731}
 --- !u!114 &2016921903
 MonoBehaviour:
   m_ObjectHideFlags: 0

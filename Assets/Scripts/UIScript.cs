@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class UIScript : MonoBehaviour
 {
     public TextMeshProUGUI introductoryText;
-    private float countdown = 10.0f;
+    private float countdown = 5.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(transform.gameObject);
-        if (SceneManager.GetActiveScene().buildIndex != 0)
+        if (SceneManager.GetActiveScene().buildIndex != 1)
         {
             Destroy(introductoryText);
         }
