@@ -15,12 +15,12 @@ public class Timer : MonoBehaviour
 
     public void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             timeLeft = TOTAL_TIME;
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             isRunning = true;
         }
