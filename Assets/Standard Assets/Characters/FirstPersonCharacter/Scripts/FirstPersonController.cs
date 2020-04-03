@@ -44,6 +44,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool wasOnVine;
         private int timeCount;
         private Vector3 vineVelocity;
+        private bool jumpDampener;
 
         private bool isGrounded; // is on a slope or not
         public float slideFriction = 0.3f; // ajusting the friction of the slope
@@ -53,7 +54,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         bool onVine;
         public GameObject vineBottom;
 
-        private float slideSpeed = 50;
+        private float slideSpeed = 1;
 
         // Use this for initialization
         private void Start()
@@ -70,6 +71,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             jump2 = false;
             onVine = false;
             wasOnVine = false;
+            jumpDampener = true;
             timeCount = 0;
         }
 
@@ -85,6 +87,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 jump1 = true;
                 jump2 = true;
                 m_MoveDir.y = -m_StickToGroundForce;
+                jumpDampener = false;
             }
 
             if (Input.GetKeyDown(KeyCode.C))
@@ -114,27 +117,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 float horizontal = Input.GetAxis("Horizontal");
                 float vertical = Input.GetAxis("Vertical");
 
-                vineBottom.GetComponent<Rigidbody>().AddForce(transform.forward * vertical * 10, ForceMode.Acceleration);
-                vineBottom.GetComponent<Rigidbody>().AddForce(transform.right * horizontal * 4, ForceMode.Acceleration);
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.forward * vertical * 2, ForceMode.Acceleration);
+                vineBottom.GetComponent<Rigidbody>().AddForce(transform.right * horizontal * 1, ForceMode.Acceleration);
                 this.transform.position = vineBottom.transform.position + new Vector3(0, -1, 0);
             }
 
             if (Input.GetButtonDown("Jump") && !onVine)
             {
-                if (jump1)
-                {
-                    m_MoveDir.y = m_JumpSpeed;
-                    PlayJumpSound();
-                    jump1 = false;
-                    m_Jumping = true;
-                }
-                else if (jump2)
-                {
-                    m_MoveDir.y = m_JumpSpeed;
-                    PlayJumpSound();
-                    jump2 = false;
-                    m_Jumping = true;
-                }
+                m_Jump = true;
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -181,9 +171,36 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
 
+            if (m_Jump && !onVine)
+            {
+                jumpDampener = true;
+                if (jump1)
+                {
+                    m_MoveDir.y = m_JumpSpeed;
+                    PlayJumpSound();
+                    jump1 = false;
+                    m_Jumping = true;
+                }
+                else if (jump2)
+                {
+                    m_MoveDir.y = m_JumpSpeed;
+                    PlayJumpSound();
+                    jump2 = false;
+                    m_Jumping = true;
+                }
+                m_Jump = false;
+            }
+
             if (!m_CharacterController.isGrounded)
             {
-                m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+                if (jumpDampener)
+                {
+                    m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+                }
+                else
+                {
+                    m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime * 9000000;
+                }
             }
 
             if (!isGrounded)
@@ -212,7 +229,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 //GetComponent<Rigidbody>().AddForce(Vector3.Scale(transform.forward, vineVelocity) * 10000000000, ForceMode.Acceleration);
 
-                Vector3 move = (new Vector3(0.0f, 3f, 0.0f) + (vineVelocity)) * 30f * Time.fixedDeltaTime;
+                Vector3 move = (new Vector3(0.0f, 300f, 0.0f) + (vineVelocity)) * 60f * Time.fixedDeltaTime;
                 m_CharacterController.Move(move);
                 Debug.Log(move);
                 wasOnVine = false;
