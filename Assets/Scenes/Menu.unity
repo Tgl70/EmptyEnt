@@ -454,8 +454,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PLAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 66eaf57e2ebb2fa47a419861366d46e6, type: 2}
-  m_sharedMaterial: {fileID: -5355009044987272094, guid: 66eaf57e2ebb2fa47a419861366d46e6,
+  m_fontAsset: {fileID: 11400000, guid: 6692ab4f14c410441aacc87fabe31681, type: 2}
+  m_sharedMaterial: {fileID: -7657521091143743877, guid: 6692ab4f14c410441aacc87fabe31681,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30588236, g: 0.011836951, b: 0.011836951, a: 1}
+  m_Color: {r: 1, g: 0.9882353, b: 0.9411765, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1186,8 +1186,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Treasure Hunt
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 354a39a1f0defe248ab5f1c9df8abc7b, type: 2}
-  m_sharedMaterial: {fileID: -1387744355009698496, guid: 354a39a1f0defe248ab5f1c9df8abc7b,
+  m_fontAsset: {fileID: 11400000, guid: 6692ab4f14c410441aacc87fabe31681, type: 2}
+  m_sharedMaterial: {fileID: -7657521091143743877, guid: 6692ab4f14c410441aacc87fabe31681,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
