@@ -18,7 +18,7 @@ public class UIScript : MonoBehaviour
                 break;
             case 2: introductoryText.SetText("A timer has started, clear all the rooms and find the treasure before the time runs out");
                 break;
-            case 3: introductoryText.SetText("In this ice cavern you can climb back, if you miss the key your only option is to commit suicide and respawn");
+            case 3: introductoryText.SetText("Be warned! In this ice cavern you cannot climb back");
                 break;
             case 4: introductoryText.SetText("To swing on the wines press E to grab it and Q to jump off");
                 break;
