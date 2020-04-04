@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public static float TOTAL_TIME = 180.0f;
+    public static float TOTAL_TIME = 240.0f;
 
     static float timeLeft; // static binds the variable to the script (and not the object) so i can keep track of the value
 
