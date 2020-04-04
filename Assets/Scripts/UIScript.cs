@@ -12,7 +12,6 @@ public class UIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(transform.gameObject);
         switch (SceneManager.GetActiveScene().buildIndex){
             case 1: introductoryText.SetText("Find the key and proceed to the next room");
                 break;
